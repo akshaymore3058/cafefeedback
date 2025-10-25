@@ -1,0 +1,269 @@
+/* ---------- Global Styles ---------- */
+body {
+  font-family: 'Poppins', Arial, sans-serif;
+  background-color: #f5efe6; /* subtle coffee-beige background */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* ---------- Container ---------- */
+.container {
+  background: #fffaf1; /* cream/light coffee card */
+  backdrop-filter: blur(8px);
+  width: 90%;
+  max-width: 550px;
+  padding: 40px 45px;
+  border-radius: 18px;
+  box-shadow: 0 8px 25px rgba(60, 40, 10, 0.2);
+  text-align: center;
+  border: 2px solid #d1b38a;
+  animation: fadeIn 1s ease;
+}
+
+.logo {
+  width: 90px;
+  margin-bottom: 10px;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.3));
+}
+
+h1 {
+  color: #3e2723;
+  margin-bottom: 8px;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+h3 {
+  color: #6b4f26;
+  font-weight: normal;
+  margin-bottom: 25px;
+  font-size: 15px;
+}
+
+/* ---------- Form ---------- */
+form {
+  text-align: left;
+}
+
+label {
+  font-weight: 600;
+  color: #4a2c00;
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1.5px solid #cfae88;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  background-color: #fffdf8;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #8b5e34;
+  outline: none;
+  box-shadow: 0 0 6px #cba35c;
+}
+
+textarea {
+  height: 100px;
+  resize: none;
+}
+
+/* === Star Rating Styling === */
+.stars {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center; /* Centers the stars horizontally */
+  align-items: center;
+  gap: 5px;
+  margin: 15px 0; /* Adds breathing room above/below */
+}
+
+.stars input {
+  display: none;
+}
+
+.stars label {
+  font-size: 2.2rem;
+  color: #ccc; /* Default gray */
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover effect - when hovering over a star and all before it */
+.stars label:hover,
+.stars label:hover ~ label {
+  color: #d2a679; /* Warm coffee brown */
+  transform: scale(1.1); /* Slight enlarge on hover */
+}
+
+/* Selected star and those before it */
+.stars input:checked ~ label {
+  color: #d16993; /* Soft rose-mocha tone for selected */
+}
+
+/* Optional: glowing effect on hover */
+.stars label:hover {
+  text-shadow: 0 0 8px rgba(210, 166, 121, 0.6);
+}
+
+
+/* ---------- Suggestion Buttons ---------- */
+.suggestion-label {
+  color: #4b2e05;
+  font-weight: 600;
+  margin-top: 10px;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.suggestion-buttons {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.suggestion-buttons button {
+  background-color: #f5e0c0;
+  border: 1px solid #d2a679;
+  color: #4b2e05;
+  padding: 8px 14px;
+  border-radius: 30px;
+  font-size: 13px;
+  margin: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.suggestion-buttons button:hover {
+  background-color: #8b5e34;
+  color: #fffaf1;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 6px rgba(139, 69, 19, 0.3);
+}
+
+.suggestion-buttons button.selected {
+  background-color: #5c4033;
+  color: #fffaf1;
+  box-shadow: 0 3px 6px rgba(60, 30, 10, 0.4);
+}
+
+/* ---------- Submit & Reset Buttons ---------- */
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 25px;
+}
+
+input[type="submit"],
+input[type="reset"] {
+  background-color: #5c4033;
+  color: #fffaf1;
+  border: none;
+  border-radius: 25px;
+  padding: 12px 28px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: 600;
+}
+
+input[type="reset"] {
+  background-color: #cfae88;
+  color: #4b2e05;
+}
+
+input[type="submit"]:hover {
+  background-color: #3e2723;
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(74, 44, 0, 0.3);
+}
+
+input[type="reset"]:hover {
+  background-color: #b68a60;
+  transform: scale(1.05);
+}
+
+/* ---------- Popup Modal ---------- */
+.popup {
+  display: none;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(53, 35, 10, 0.5);
+  z-index: 999;
+}
+
+.popup-content {
+  background-color: #fffaf1;
+  padding: 25px 35px;
+  border-radius: 12px;
+  text-align: center;
+  color: #4b2e05;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.3s ease;
+  max-width: 320px;
+}
+
+.popup-content h2 {
+  margin-top: 0;
+  color: #8b5e34;
+}
+
+.popup-content button {
+  background-color: #8b5e34;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.popup-content button:hover {
+  background-color: #4b2e05;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 600px) {
+  .container {
+    padding: 25px;
+  }
+
+  h1 {
+    font-size: 22px;
+  }
+
+  .suggestion-buttons button {
+    font-size: 12px;
+    padding: 7px 10px;
+  }
+
+  input[type="submit"],
+  input[type="reset"] {
+    padding: 10px 20px;
+  }
+}

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>the playce- Feedback Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="admin.css">
+  
+</head>
+<body>
+  <header>
+    <h1>☕ the Playce Feedback Dashboard</h1>
+    <p>Track customer happiness and engagement in real-time!</p>
+  </header>
+
+  <div class="dashboard">
+    <!-- Left Section: Table -->
+    <div class="table-section">
+      <h2>📋 Customer Feedback</h2>
+      <table id="feedbackTable">
+        <thead>
+          <tr>
+            <th>Token</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Rating</th>
+            <th>Feedback</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div class="summary" id="repeatSummary">Repeated Customers: 0</div>
+    </div>
+
+    <!-- Right Section: Chart -->
+    <div class="chart-section">
+      <h2>⭐ Rating Overview</h2>
+      <canvas id="ratingChart"></canvas>
+    </div>
+  </div>
+
+  <script>
+    // Auto-refresh feedback data every 5 seconds
+setInterval(() => {
+  location.reload();
+}, 5000);
+
+   // ✅ Load data from localStorage
+const feedbackData = JSON.parse(localStorage.getItem("feedbackList")) || [];
+
+
+    // === Populate Table ===
+    const tbody = document.querySelector("#feedbackTable tbody");
+    feedbackData.forEach(item => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${item.token}</td>
+        <td>${item.name}</td>
+        <td>${item.email}</td>
+        <td>${"★".repeat(item.rating)}</td>
+        <td>${item.feedback}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    // === Count Repeated Customers (by email) ===
+    const emailCount = {};
+    feedbackData.forEach(item => {
+      emailCount[item.email] = (emailCount[item.email] || 0) + 1;
+    });
+    const repeatCustomers = Object.values(emailCount).filter(count => count > 1).length;
+    document.getElementById("repeatSummary").textContent = `Repeated Customers: ${repeatCustomers}`;
+
+    // === Generate Rating Chart ===
+    const ratingCounts = [1, 2, 3, 4, 5].map(rating =>
+      feedbackData.filter(item => item.rating === rating).length
+    );
+
+    new Chart(document.getElementById("ratingChart"), {
+      type: "bar",
+      data: {
+        labels: ["1★", "2★", "3★", "4★", "5★"],
+        datasets: [{
+          label: "Number of Ratings",
+          data: ratingCounts,
+          backgroundColor: ["#e0c097", "#d2a679", "#c97b3a", "#b85c38", "#8b4513"]
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: { beginAtZero: true, title: { display: true, text: "Number of Customers" } },
+          x: { title: { display: true, text: "Rating" } }
+        },
+        plugins: {
+          legend: { display: false },
+          tooltip: { enabled: true }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
